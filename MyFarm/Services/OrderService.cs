@@ -3,7 +3,7 @@ using MyFarm.Models;
 
 namespace MyFarm.Services
 {
-    public class OrderService : IOrderService
+    public class OrderService 
     {
         private readonly OrderDataProvider _orderDataProvider;
 

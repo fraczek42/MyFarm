@@ -1,5 +1,5 @@
 ﻿@page "/AddOrderVegetables"
-@inject MyFarm.Services.IOrderService OrderService
+@inject MyFarm.Services.OrderService OrderService
 
 <MudForm Class="pa-4">
     <MudSelect T="int" @bind-Value="@Order.OrderingPersonId" Label="Osoba zamawiająca" Required="true" Class="my-2">
@@ -38,10 +38,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Console.WriteLine("test1");
-        Console.WriteLine("test2");
-        Console.WriteLine("test3");
-        Console.WriteLine("test4");
         Orders = await OrderService.GetAllOrdersAsync();
     }
 
