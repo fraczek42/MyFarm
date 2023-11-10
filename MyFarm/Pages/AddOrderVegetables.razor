@@ -1,0 +1,53 @@
+﻿@page "/AddOrderVegetables"
+@inject MyFarm.Services.IOrderService OrderService
+
+<MudForm Class="pa-4">
+    <MudSelect T="int" @bind-Value="@Order.OrderingPersonId" Label="Osoba zamawiająca" Required="true" Class="my-2">
+        @foreach (var person in Persons)
+        {
+            <MudSelectItem Value="@person">@person</MudSelectItem>
+        }
+    </MudSelect>
+    <MudNumericField @bind-Value="@Order.Quantity" Label="Ilość" Required="true" Class="my-2"></MudNumericField>
+    <MudButton OnClick="AddOrder" Color="Color.Primary" Class="mt-4">Dodaj zamówienie</MudButton>
+</MudForm>
+
+<MudDatePicker @bind-Date="@SelectedDate" Label="Wybierz datę" Class="my-4"></MudDatePicker>
+
+<MudTable Items="@Orders" Hover="true" SortLabel="Sortuj według" Elevation="0">
+    <HeaderContent>
+        <MudTh><MudTableSortLabel SortBy="new Func<Order, object>(x=>x.OrderingPersonId)">Osoba</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<Order, object>(x=>x.Quantity)">Ilość</MudTableSortLabel></MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Osoba">@context.OrderingPersonId</MudTd>
+        <MudTd DataLabel="Ilość">@context.Quantity</MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager PageSizeOptions="new int[]{5, 10, 20}" />
+    </PagerContent>
+</MudTable>
+
+
+@code {
+    private Order Order = new Order();
+
+    private List<Order> Orders { get; set; } = new List<Order>();
+    private DateTime? SelectedDate { get; set; } = DateTime.Now;
+    private List<int> Persons { get; set; } = new List<int> { 1, 2, 3 };
+
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("test1");
+        Console.WriteLine("test2");
+        Console.WriteLine("test3");
+        Console.WriteLine("test4");
+        Orders = await OrderService.GetAllOrdersAsync();
+    }
+
+    private void AddOrder()
+    {
+        Console.WriteLine("Dodaj");
+    }
+
+}

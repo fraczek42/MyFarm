@@ -1,0 +1,43 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider IsDarkMode="isDarkMode" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+
+    <MudAppBar Elevation="0" Fixed="true">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudSpacer />
+        <MudDrawerHeader>
+            <MudText Typo="Typo.h6">Warzywniaczek</MudText>
+        </MudDrawerHeader>
+        <MudSpacer />
+        <MudToggleIconButton @bind-Toggled="@isDarkMode"
+                             Icon="@Icons.Material.Filled.DarkMode" Color="@Color.Inherit"
+                             ToggledIcon="@Icons.Material.Filled.LightMode" ToggledColor="@Color.Warning" />
+    </MudAppBar>
+
+    <MudDrawer ClipMode="DrawerClipMode.Always" @bind-Open="_drawerOpen" Elevation="1" OverflowY="auto" Style="max-height: 100vh;">
+        <NavMenu />
+    </MudDrawer>
+
+    <MudMainContent>
+        <MudContainer Class="px-2 py-3">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+
+</MudLayout>
+
+
+@code {
+    bool _drawerOpen = true;
+    private bool isDarkMode = true;
+
+
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+}
