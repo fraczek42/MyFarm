@@ -16,7 +16,7 @@ namespace MyFarm.DataApi
         {
             try
             {
-                var response = await _httpClient.GetAsync("/Order");
+                var response = await _httpClient.GetAsync("/api/orders");
                 if (response.IsSuccessStatusCode)
                 {
                     var orders = await response.Content.ReadFromJsonAsync<List<Order>>();
